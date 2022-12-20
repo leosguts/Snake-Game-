@@ -68,37 +68,40 @@ food.goto(q,p)
 
 bits = []
 
-# Scoring
+# Initial Score
 pen=turtle.Turtle()
 pen.speed(0)
-pen.shape('square')
 pen.color('white')
 pen.penup()
 pen.hideturtle()
 pen.goto(0,-260)
 pen.write('Score:0  High score:0', align='center', font=('Courier',24,'normal'))
 pen.goto(0,-290)
-pen.write('done by - gamer',align='right')
+pen.write('Created by - Shashank',align='center', font=('Courier',18,'normal'))
 while True:
     bg.update()
 
-    # Snake interaction with the border
+    # Snake head interaction with the border
     if head.xcor()>290 or head.xcor()<-290 or head.ycor()>290 or head.ycor()<-290:
         time.sleep(1)
-        head.goto(q,p)
         head.direction = 'stop'
+        head.goto(q,p)
+        
+        # Clearing the bits
         for bit in bits:
             bit.goto(1000,1000)
-        # Clearing the bits
         bits.clear()
 
         #Scoring
         score=0
         pen.clear()
+        pen.goto(0,-260)
         pen.write('Score: {}  High score: {}'.format(score,high_score),align='center', font=('Courier',24,'normal'))
+        pen.goto(0,-290)
+        pen.write('Created by - Shashank',align='center', font=('Courier',18,'normal'))
 
 
-
+    #snake having food
     if head.distance(food)<20:
         x= r.randint(-250,250)
         y= r.randint(-250,250)
@@ -118,12 +121,12 @@ while True:
         pen.clear()
         pen.write('Score: {}  High score: {}'.format(score,high_score),align='center', font=('Courier',24,'normal'))
 
-        # For joining the bits to the snake Head
+    # For joining the bits to the other bits    
     for index in range(len(bits)-1,0,-1):
         x=bits[index-1].xcor()
         y=bits[index-1].ycor()
         bits[index].goto(x,y)
-
+    
     if len(bits)>0:
         x=head.xcor()
         y=head.ycor()
@@ -131,22 +134,23 @@ while True:
 
     move()
 
+    # self biting
     for bit in bits:
         if bit.distance(head) < 7:
             time.sleep(1)
             head.goto(q, p)
             head.direction = 'stop'
-            score = 0
-            pen.clear()
-            pen.write('Score: {}  High score: {}'.format(score, high_score), align='center', font=('Courier', 24, 'normal'))
-            pen.write('done by - shashank,chethan,abhishek', align='right')
+            # Clearing the bits
             for bit in bits:
                 bit.goto(1000, 1000)
-
-            # Clearing the bits
-
             bits.clear()
-
+            # scoring
+            score = 0
+            pen.clear()
+            pen.goto(0,-260)
+            pen.write('Score: {}  High score: {}'.format(score,high_score),align='center', font=('Courier',24,'normal'))
+            pen.goto(0,-290)
+            pen.write('Created by - Shashank',align='center', font=('Courier',18,'normal'))
 
     time.sleep(delay)
 bg.mainloop()
